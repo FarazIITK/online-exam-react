@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import QuestionAndOptions from './Components/Question';
+import QuestionAndAnswer from './Components/QuestionAndAnswer';
 import axios from 'axios';
 
 export interface IQuestionData {
@@ -32,6 +32,10 @@ function App() {
   const [isQuestionsLoaded, setIsQuestionsLoaded] =
     useState<boolean>(false);
 
+  //
+  const [isQaVisible, setIsQaVisible] =
+    useState<boolean>(true);
+
   useEffect(() => {
     const questionApiUrl = `https://jservice.io/api/random`;
     const numberOfQuestions = 5;
@@ -46,7 +50,15 @@ function App() {
 
   return (
     <div className="App">
-      <QuestionAndOptions questionsData={questionsData} />
+      {!isQuestionsLoaded && (
+        <h3>Loading Questions ... </h3>
+      )}
+      {isQuestionsLoaded && isQaVisible && (
+        <QuestionAndAnswer
+          questionsData={questionsData}
+          setIsQaVisible={setIsQaVisible}
+        />
+      )}
     </div>
   );
 }
