@@ -24,6 +24,13 @@ export interface IQuestionData {
   };
 }
 
+export interface IAnsweredData {
+  questionId: number;
+  answer: string;
+  timeTaken: number;
+  correct: boolean;
+}
+
 function App() {
   // State to store data from the API response
   const [questionsData, setQuestionsData] = useState<
@@ -36,6 +43,12 @@ function App() {
   // State to track whether to show question-answers list
   const [isQaVisible, setIsQaVisible] =
     useState<boolean>(true);
+
+  const [answerProvided, setAnswerPzrovided] = useState<
+    IAnsweredData[]
+  >([]);
+  const [isResultVisible, setIsResultVisible] =
+    useState<boolean>(false);
 
   useEffect(() => {
     const questionApiUrl = `https://jservice.io/api/random`;
@@ -60,9 +73,17 @@ function App() {
           setIsQaVisible={setIsQaVisible}
         />
       )}
-      {isQuestionsLoaded && !isQaVisible && (
-        <Questions questionsData={questionsData} />
-      )}
+      {isQuestionsLoaded &&
+        !isQaVisible &&
+        !isResultVisible && (
+          <Questions
+            questionsData={questionsData}
+            answerProvided={answerProvided}
+            setAnswerPzrovided={setAnswerPzrovided}
+            isResultVisible={isResultVisible}
+            setIsResultVisible={setIsResultVisible}
+          />
+        )}
     </div>
   );
 }

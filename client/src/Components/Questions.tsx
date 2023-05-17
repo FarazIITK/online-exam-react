@@ -1,34 +1,30 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import { useState } from 'react';
-import { IQuestionData } from '../App';
+import { IQuestionData, IAnsweredData } from '../App';
 
 interface IProp {
   questionsData: IQuestionData[];
-}
-
-interface IAnsweredData {
-  questionId: number;
-  answer: string;
-  timeTaken: number;
-  correct: boolean;
+  answerProvided: IAnsweredData[];
+  setAnswerPzrovided: React.Dispatch<
+    React.SetStateAction<IAnsweredData[]>
+  >;
+  isResultVisible: boolean;
+  setIsResultVisible: React.Dispatch<
+    React.SetStateAction<boolean>
+  >;
 }
 
 const Questions = (props: IProp) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] =
     useState<number>(0);
-  const [answerProvided, setAnswerPzrovided] = useState<
-    IAnsweredData[]
-  >([]);
-  const [isResultVisible, setIsResultVisible] =
-    useState<boolean>(false);
 
   const handleAnswerSelection = (
     questionId: number,
     answer: string,
     correctAnswer: string
   ) => {
-    setAnswerPzrovided((prevAnswers) => {
+    props.setAnswerPzrovided((prevAnswers) => {
       const newAnswer: IAnsweredData = {
         questionId: questionId,
         answer: answer,
@@ -47,7 +43,7 @@ const Questions = (props: IProp) => {
     ) {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
     } else {
-      setIsResultVisible(true);
+      props.setIsResultVisible(true);
     }
   };
 
