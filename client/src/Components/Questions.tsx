@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { IQuestionData, IAnsweredData } from '../App';
+import QuestionOptions from './QuestionOptions';
 
 interface IProp {
   questionsData: IQuestionData[];
@@ -47,32 +48,50 @@ const Questions = (props: IProp) => {
     }
   };
 
+  const handleOptionSelect = (
+    questionId: number,
+    answer: string,
+    correctAnswer: string
+  ) => {
+    props.setAnswerPzrovided((prevAnswers) => {
+      const newAnswer: IAnsweredData = {
+        questionId: questionId,
+        answer: answer,
+        timeTaken: 10,
+        correct: answer === correctAnswer
+      };
+      if (prevAnswers.length - 1 !== currentQuestionIndex) {
+        return [...prevAnswers, newAnswer];
+      }
+
+      const copiedPrevAnswers = [...prevAnswers];
+      if (copiedPrevAnswers.length === 0) {
+        return [newAnswer];
+      } else {
+        copiedPrevAnswers.pop();
+        return [...copiedPrevAnswers, newAnswer];
+      }
+    });
+    // moveToNextQuestion();
+  };
+
   return (
     <div>
-      <h2>Question:</h2>
+      <h2>Question: {currentQuestionIndex + 1}</h2>
       <p>
         {props.questionsData[currentQuestionIndex].question}
       </p>
       <h2>Answer options:</h2>
-      <ul>
-        {props.questionsData.map((question) => (
-          <li key={question.id}>
-            <button
-              onClick={() =>
-                handleAnswerSelection(
-                  props.questionsData[currentQuestionIndex]
-                    .id,
-                  question.answer,
-                  props.questionsData[currentQuestionIndex]
-                    .answer
-                )
-              }
-            >
-              {question.answer}
-            </button>
-          </li>
-        ))}
-      </ul>
+
+      <div>
+        <QuestionOptions
+          currentQuestionIndex={currentQuestionIndex}
+          questionsData={props.questionsData}
+          handleOptionSelect={handleOptionSelect}
+          setAnswerPzrovided={props.setAnswerPzrovided}
+        />
+      </div>
+      <button onClick={moveToNextQuestion}>Next</button>
     </div>
   );
 };
