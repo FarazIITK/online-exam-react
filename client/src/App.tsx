@@ -57,7 +57,6 @@ function App() {
     axios
       .get(`${questionApiUrl}?count=${numberOfQuestions}`)
       .then((response) => {
-        console.log('Data: ', response.data);
         setQuestionsData(response.data);
         setIsQuestionsLoaded(true);
       });
