@@ -22,11 +22,11 @@ const QuestionAndAnswer = (props: IProp) => {
       {props.questionsData &&
         props.questionsData.map((questionData, index) => {
           return (
-            <>
+            <div key={questionData.id}>
               <h3>Question {index + 1}</h3>
               <p>{questionData.question}</p>
               <p>Answer: {questionData.answer}</p>
-            </>
+            </div>
           );
         })}
     </div>
