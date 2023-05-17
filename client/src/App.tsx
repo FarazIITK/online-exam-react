@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import QuestionAndOptions from './Components/Question';
+import axios from 'axios';
 
 export interface IQuestionData {
   id: number;
@@ -23,16 +24,29 @@ export interface IQuestionData {
 }
 
 function App() {
+  // State to store data from the API response
   const [questionsData, setQuestionsData] = useState<
     IQuestionData[] | null
   >(null);
+  // State to handle whether the questions data is loaded
+  const [isQuestionsLoaded, setIsQuestionsLoaded] =
+    useState<boolean>(false);
+
+  useEffect(() => {
+    const questionApiUrl = `https://jservice.io/api/random`;
+    const numberOfQuestions = 5;
+    axios
+      .get(`${questionApiUrl}?count=${numberOfQuestions}`)
+      .then((response) => {
+        console.log('Data: ', response.data);
+        setQuestionsData(response.data);
+        setIsQuestionsLoaded(true);
+      });
+  }, []);
 
   return (
     <div className="App">
-      <QuestionAndOptions
-        questionsData={questionsData}
-        setQuestionsData={setQuestionsData}
-      />
+      <QuestionAndOptions questionsData={questionsData} />
     </div>
   );
 }
