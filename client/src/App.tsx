@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import QuestionAndAnswer from './Components/QuestionAndAnswer';
 import axios from 'axios';
+import Questions from './Components/Questions';
 
 export interface IQuestionData {
   id: number;
@@ -26,13 +27,13 @@ export interface IQuestionData {
 function App() {
   // State to store data from the API response
   const [questionsData, setQuestionsData] = useState<
-    IQuestionData[] | null
-  >(null);
+    IQuestionData[]
+  >([]);
   // State to handle whether the questions data is loaded
   const [isQuestionsLoaded, setIsQuestionsLoaded] =
     useState<boolean>(false);
 
-  //
+  // State to track whether to show question-answers list
   const [isQaVisible, setIsQaVisible] =
     useState<boolean>(true);
 
@@ -58,6 +59,9 @@ function App() {
           questionsData={questionsData}
           setIsQaVisible={setIsQaVisible}
         />
+      )}
+      {isQuestionsLoaded && !isQaVisible && (
+        <Questions questionsData={questionsData} />
       )}
     </div>
   );
