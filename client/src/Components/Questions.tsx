@@ -77,20 +77,13 @@ const Questions = (props: IProp) => {
 
   return (
     <div>
-      <h2>Question: {currentQuestionIndex + 1}</h2>
-      <p>
-        {props.questionsData[currentQuestionIndex].question}
-      </p>
-      <h2>Answer options:</h2>
+      <QuestionOptions
+        currentQuestionIndex={currentQuestionIndex}
+        questionsData={props.questionsData}
+        handleOptionSelect={handleOptionSelect}
+        setAnswerPzrovided={props.setAnswerPzrovided}
+      />
 
-      <div>
-        <QuestionOptions
-          currentQuestionIndex={currentQuestionIndex}
-          questionsData={props.questionsData}
-          handleOptionSelect={handleOptionSelect}
-          setAnswerPzrovided={props.setAnswerPzrovided}
-        />
-      </div>
       <button onClick={moveToNextQuestion}>Next</button>
     </div>
   );
