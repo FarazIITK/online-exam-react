@@ -23,9 +23,13 @@ const QuestionAndAnswer = (props: IProp) => {
         props.questionsData.map((questionData, index) => {
           return (
             <div key={questionData.id}>
-              <h3>Question {index + 1}</h3>
-              <p>{questionData.question}</p>
-              <p>Answer: {questionData.answer}</p>
+              <p>
+                <b>Question {index + 1}:</b>{' '}
+                {questionData.question}
+              </p>
+              <p>
+                <b>Answer:</b> {questionData.answer}
+              </p>
             </div>
           );
         })}
