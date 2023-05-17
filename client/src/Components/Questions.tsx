@@ -20,23 +20,6 @@ const Questions = (props: IProp) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] =
     useState<number>(0);
 
-  const handleAnswerSelection = (
-    questionId: number,
-    answer: string,
-    correctAnswer: string
-  ) => {
-    props.setAnswerPzrovided((prevAnswers) => {
-      const newAnswer: IAnsweredData = {
-        questionId: questionId,
-        answer: answer,
-        timeTaken: 10,
-        correct: answer === correctAnswer
-      };
-      return [...prevAnswers, newAnswer];
-    });
-    moveToNextQuestion();
-  };
-
   const moveToNextQuestion = () => {
     if (
       currentQuestionIndex <
