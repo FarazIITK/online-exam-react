@@ -3,6 +3,7 @@ import './App.css';
 import QuestionAndAnswer from './Components/QuestionAndAnswer';
 import axios from 'axios';
 import Questions from './Components/Questions';
+import Result from './Components/Result';
 
 export interface IQuestionData {
   id: number;
@@ -84,6 +85,9 @@ function App() {
             setIsResultVisible={setIsResultVisible}
           />
         )}
+      {isResultVisible && (
+        <Result answerProvided={answerProvided} />
+      )}
     </div>
   );
 }
