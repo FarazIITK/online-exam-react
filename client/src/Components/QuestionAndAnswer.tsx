@@ -13,12 +13,22 @@ const QuestionAndAnswer = (props: IProp) => {
   useEffect(() => {
     setTimeout(() => {
       props.setIsQaVisible(false);
-    }, 4000);
+    }, 40000);
   }, []);
 
   return (
     <div>
-      <h1>Question</h1>
+      <h1>Quickly memorize the answers!</h1>
+      {props.questionsData &&
+        props.questionsData.map((questionData, index) => {
+          return (
+            <>
+              <h3>Question {index + 1}</h3>
+              <p>{questionData.question}</p>
+              <p>Answer: {questionData.answer}</p>
+            </>
+          );
+        })}
     </div>
   );
 };
