@@ -37,6 +37,7 @@ function App() {
   const [questionsData, setQuestionsData] = useState<
     IQuestionData[]
   >([]);
+
   // State to handle whether the questions data is loaded
   const [isQuestionsLoaded, setIsQuestionsLoaded] =
     useState<boolean>(false);
@@ -45,9 +46,12 @@ function App() {
   const [isQaVisible, setIsQaVisible] =
     useState<boolean>(true);
 
-  const [answerProvided, setAnswerPzrovided] = useState<
+  // State to store the user response
+  const [answerProvided, setAnswerProvided] = useState<
     IAnsweredData[]
   >([]);
+
+  // State to track whether to show the results page
   const [isResultVisible, setIsResultVisible] =
     useState<boolean>(false);
 
@@ -64,28 +68,38 @@ function App() {
 
   return (
     <div className="App">
+      {/* Loader for the API */}
       {!isQuestionsLoaded && (
         <h3>Loading Questions ... </h3>
       )}
+
+      {/* Question-answer list component */}
       {isQuestionsLoaded && isQaVisible && (
         <QuestionAndAnswer
           questionsData={questionsData}
           setIsQaVisible={setIsQaVisible}
         />
       )}
+
+      {/* Component for question and their options */}
       {isQuestionsLoaded &&
         !isQaVisible &&
         !isResultVisible && (
           <Questions
             questionsData={questionsData}
             answerProvided={answerProvided}
-            setAnswerPzrovided={setAnswerPzrovided}
+            setAnswerProvided={setAnswerProvided}
             isResultVisible={isResultVisible}
             setIsResultVisible={setIsResultVisible}
           />
         )}
+
+      {/* Component to display results */}
       {isResultVisible && (
-        <Result answerProvided={answerProvided} />
+        <Result
+          answerProvided={answerProvided}
+          questionsData={questionsData}
+        />
       )}
     </div>
   );

@@ -10,15 +10,20 @@ interface IProp {
 }
 
 const QuestionAndAnswer = (props: IProp) => {
+  const timerToDisplayQa = 10000;
+
+  const qaHeading = `Quickly memorize the answers!`;
+
+  // UseEffect to attach timer to display question-answer list
   useEffect(() => {
     setTimeout(() => {
       props.setIsQaVisible(false);
-    }, 40000);
+    }, timerToDisplayQa);
   }, []);
 
   return (
     <div>
-      <h1>Quickly memorize the answers!</h1>
+      <h1>{qaHeading}</h1>
       {props.questionsData &&
         props.questionsData.map((questionData, index) => {
           return (

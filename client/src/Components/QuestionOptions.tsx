@@ -11,12 +11,13 @@ interface IProp {
     answer: string,
     correctAnswer: string
   ) => void;
-  setAnswerPzrovided: React.Dispatch<
+  setAnswerProvided: React.Dispatch<
     React.SetStateAction<IAnsweredData[]>
   >;
 }
 
 const QuestionOptions = (props: IProp) => {
+  // Handler to shuffle the answer options
   function shuffle(array: IQuestionData[]) {
     let currentIndex = array.length,
       randomIndex;

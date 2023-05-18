@@ -7,7 +7,7 @@ import QuestionOptions from './QuestionOptions';
 interface IProp {
   questionsData: IQuestionData[];
   answerProvided: IAnsweredData[];
-  setAnswerPzrovided: React.Dispatch<
+  setAnswerProvided: React.Dispatch<
     React.SetStateAction<IAnsweredData[]>
   >;
   isResultVisible: boolean;
@@ -17,12 +17,20 @@ interface IProp {
 }
 
 const Questions = (props: IProp) => {
+  const timeCompletedAlertMessage = `Sorry! Time Over`;
+  const timePerQuestion = 20;
+
+  // State to track the current question
   const [currentQuestionIndex, setCurrentQuestionIndex] =
     useState<number>(0);
 
-  const timePerQuestion = 20;
+  // State to keep track of remaining time
+  const [remainingTime, setRemainingTime] =
+    useState(timePerQuestion);
 
-  const moveToNextQuestion = () => {
+  // Handler for next button
+  // If we are on last question, then  set isResultVisible to true otherwise simply increment the current question
+  const handleNextQuestion = () => {
     if (
       currentQuestionIndex <
       props.questionsData.length - 1
@@ -34,22 +42,25 @@ const Questions = (props: IProp) => {
     setRemainingTime(timePerQuestion);
   };
 
+  // Handler to store the selected result
   const handleOptionSelect = (
     questionId: number,
     answer: string,
     correctAnswer: string
   ) => {
-    props.setAnswerPzrovided((prevAnswers) => {
+    props.setAnswerProvided((prevAnswers) => {
       const newAnswer: IAnsweredData = {
         questionId: questionId,
         answer: answer,
         timeTaken: timePerQuestion - remainingTime,
         correct: answer === correctAnswer
       };
+      // If we are selecting an option for the first time, then we can simply append the results to the answer array
       if (prevAnswers.length - 1 !== currentQuestionIndex) {
         return [...prevAnswers, newAnswer];
       }
 
+      // If we are selecting a different option for the same question, then we've replace the previous result with the new results
       const copiedPrevAnswers = [...prevAnswers];
       if (copiedPrevAnswers.length === 0) {
         return [newAnswer];
@@ -60,9 +71,7 @@ const Questions = (props: IProp) => {
     });
   };
 
-  const [remainingTime, setRemainingTime] =
-    useState(timePerQuestion);
-
+  // To set timer for the question
   useEffect(() => {
     const timer = setInterval(() => {
       setRemainingTime((prevTime) => prevTime - 1);
@@ -70,10 +79,12 @@ const Questions = (props: IProp) => {
     return () => clearInterval(timer);
   }, [currentQuestionIndex]);
 
+  // UseEffect to keep track to remaining time for each question
+  // If remaining time is zero, then show alert and move to next question
   useEffect(() => {
     if (remainingTime === 0) {
-      moveToNextQuestion();
-      alert('Time completed');
+      handleNextQuestion();
+      alert(timeCompletedAlertMessage);
     }
   }, [remainingTime]);
 
@@ -84,10 +95,10 @@ const Questions = (props: IProp) => {
         currentQuestionIndex={currentQuestionIndex}
         questionsData={props.questionsData}
         handleOptionSelect={handleOptionSelect}
-        setAnswerPzrovided={props.setAnswerPzrovided}
+        setAnswerProvided={props.setAnswerProvided}
       />
 
-      <button onClick={moveToNextQuestion}>Next</button>
+      <button onClick={handleNextQuestion}>Next</button>
     </div>
   );
 };

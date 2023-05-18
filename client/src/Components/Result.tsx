@@ -19,6 +19,9 @@ const Result = (props: IProp) => {
   let result = 0;
   let unattempted = 0;
 
+  const localStorageKey: string = 'quiz-results';
+
+  // Logic to evaluate the results
   const resultStats: IResultStats[] =
     props.questionsData.map((question) => {
       const { id: questionId } = question;
@@ -49,8 +52,10 @@ const Result = (props: IProp) => {
         };
       }
     });
+
+  // Logic to store results in local storage
   const localStorageItem: string | null =
-    localStorage.getItem('quiz-results');
+    localStorage.getItem(localStorageKey);
 
   if (localStorageItem) {
     const storedResults: IResultStats[][] = JSON.parse(
@@ -58,12 +63,12 @@ const Result = (props: IProp) => {
     );
     storedResults.push(resultStats);
     localStorage.setItem(
-      'quiz-results',
+      localStorageKey,
       JSON.stringify(storedResults)
     );
   } else {
     localStorage.setItem(
-      'quiz-results',
+      localStorageKey,
       JSON.stringify([result])
     );
   }
