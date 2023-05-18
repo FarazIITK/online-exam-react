@@ -108,20 +108,6 @@ const Result = (props: IProp) => {
           ))}
         </tbody>
       </table>
-
-      {/* {resultStats.map((result, index) => {
-        return (
-          <div key={result.id}>
-            <p>
-              <b>Question {index + 1}:</b>{' '}
-            </p>
-            <p>Your Answer: {result.answerSelected}</p>
-            <p>Correct Answer: {result.correctAnswer}</p>
-            <p>Time Taken: {result.timeTaken}</p>
-            <p>Status: {result.status}</p>
-          </div>
-        );
-      })} */}
     </div>
   );
 };
@@ -134,8 +120,6 @@ interface ITableProp {
 }
 
 const TableRow = (props: ITableProp) => {
-  // const row = props.rowContent;
-
   const modifiedRow = [
     props.questionNumber,
     props.rowContent.answerSelected,
