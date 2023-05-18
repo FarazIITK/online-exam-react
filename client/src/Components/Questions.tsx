@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IQuestionData, IAnsweredData } from '../App';
 import QuestionOptions from './QuestionOptions';
 
@@ -20,6 +20,8 @@ const Questions = (props: IProp) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] =
     useState<number>(0);
 
+  const timePerQuestion = 15;
+
   const moveToNextQuestion = () => {
     if (
       currentQuestionIndex <
@@ -29,6 +31,7 @@ const Questions = (props: IProp) => {
     } else {
       props.setIsResultVisible(true);
     }
+    setRemainingTime(timePerQuestion);
   };
 
   const handleOptionSelect = (
@@ -55,11 +58,31 @@ const Questions = (props: IProp) => {
         return [...copiedPrevAnswers, newAnswer];
       }
     });
-    // moveToNextQuestion();
   };
+
+  const [remainingTime, setRemainingTime] =
+    useState(timePerQuestion); // Set the initial time limit here
+
+  useEffect(() => {
+    // Decrease the remaining time by 1 every second
+    const timer = setInterval(() => {
+      setRemainingTime((prevTime) => prevTime - 1);
+    }, 1000);
+    // Clean up the timer when the component unmounts or when moving to the next question
+    return () => clearInterval(timer);
+  }, [currentQuestionIndex]);
+
+  useEffect(() => {
+    // Move to the next question when the time runs out
+    if (remainingTime === 0) {
+      moveToNextQuestion();
+      alert('Time completed');
+    }
+  }, [remainingTime]);
 
   return (
     <div>
+      <h3>Time Passed: {remainingTime}</h3>
       <QuestionOptions
         currentQuestionIndex={currentQuestionIndex}
         questionsData={props.questionsData}
