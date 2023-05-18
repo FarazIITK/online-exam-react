@@ -1,7 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import { useEffect, useState } from 'react';
-import { IQuestionData, IAnsweredData } from '../App';
+import {
+  IQuestionData,
+  IAnsweredData
+} from '../Interface/InterfaceDefinitions';
 
 interface IProp {
   currentQuestionIndex: number;

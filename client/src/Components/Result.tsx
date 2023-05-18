@@ -1,18 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import { IAnsweredData, IQuestionData } from '../App';
+import {
+  IAnsweredData,
+  IQuestionData
+} from '../Interface/InterfaceDefinitions';
+import { IResultStats } from '../Interface/InterfaceDefinitions';
 
 interface IProp {
   answerProvided: IAnsweredData[];
   questionsData: IQuestionData[];
-}
-
-interface IResultStats {
-  id: number;
-  timeTaken: number | string;
-  status: 'correct' | 'incorrect' | 'unattempted';
-  answerSelected: string;
-  correctAnswer: string;
 }
 
 const Result = (props: IProp) => {
