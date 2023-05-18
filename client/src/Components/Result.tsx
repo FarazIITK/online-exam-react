@@ -39,8 +39,8 @@ const Result = (props: IProp) => {
           id: questionId,
           timeTaken: isAnswered.timeTaken,
           status: isAnswered.correct
-            ? 'correct'
-            : 'incorrect',
+            ? 'Correct'
+            : 'Incorrect',
           answerSelected: isAnswered.answer,
           correctAnswer: question.answer
         };
@@ -49,7 +49,7 @@ const Result = (props: IProp) => {
         return {
           id: questionId,
           timeTaken: 'NA',
-          status: 'unattempted',
+          status: 'Unattempted',
           answerSelected: 'NA',
           correctAnswer: question.answer
         };

@@ -64,7 +64,7 @@ const QuestionOptions = (props: IProp) => {
       {shuffledArray.map((question, index) => (
         <li
           key={`${props.currentQuestionIndex + 1},${index}`}
-          style={{ listStyle: 'none' }}
+          className="list-style"
         >
           <input
             type="radio"

@@ -101,7 +101,12 @@ const Questions = (props: IProp) => {
         setAnswerProvided={props.setAnswerProvided}
       />
 
-      <button onClick={handleNextQuestion}>Next</button>
+      <button
+        onClick={handleNextQuestion}
+        className="next-button"
+      >
+        Next
+      </button>
     </div>
   );
 };
