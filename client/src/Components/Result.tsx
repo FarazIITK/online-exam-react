@@ -90,7 +90,6 @@ const Result = (props: IProp) => {
         {(result / props.questionsData.length) * 100} %
       </h2>
 
-      {/* <p>{(result / props.questionsData.length) * 100} %</p> */}
       <table style={{ width: 1000 }}>
         <thead>
           <tr>
