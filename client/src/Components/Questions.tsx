@@ -79,7 +79,7 @@ const Questions = (props: IProp) => {
 
   return (
     <div>
-      <h3>Time Passed: {remainingTime}</h3>
+      <h3>Remaining time: {remainingTime}</h3>
       <QuestionOptions
         currentQuestionIndex={currentQuestionIndex}
         questionsData={props.questionsData}
