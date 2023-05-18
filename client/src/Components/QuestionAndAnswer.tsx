@@ -22,12 +22,15 @@ const QuestionAndAnswer = (props: IProp) => {
   }, []);
 
   return (
-    <div>
+    <div className="question-answer">
       <h1>{qaHeading}</h1>
       {props.questionsData &&
         props.questionsData.map((questionData, index) => {
           return (
-            <div key={questionData.id}>
+            <div
+              key={questionData.id}
+              className="question-box"
+            >
               <p>
                 <b>Question {index + 1}:</b>{' '}
                 {questionData.question}
