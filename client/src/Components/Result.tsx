@@ -49,6 +49,24 @@ const Result = (props: IProp) => {
         };
       }
     });
+  const localStorageItem: string | null =
+    localStorage.getItem('quiz-results');
+
+  if (localStorageItem) {
+    const storedResults: IResultStats[][] = JSON.parse(
+      localStorageItem
+    );
+    storedResults.push(resultStats);
+    localStorage.setItem(
+      'quiz-results',
+      JSON.stringify(storedResults)
+    );
+  } else {
+    localStorage.setItem(
+      'quiz-results',
+      JSON.stringify([result])
+    );
+  }
 
   return (
     <div>
