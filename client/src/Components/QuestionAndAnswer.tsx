@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react';
-import { IQuestionData } from '../App';
+import { IQuestionData } from '../Interface/InterfaceDefinitions';
 
 interface IProp {
   questionsData: IQuestionData[] | null;
