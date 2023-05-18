@@ -15,6 +15,13 @@ const Result = (props: IProp) => {
   let result = 0;
   let unattempted = 0;
 
+  var heading = [
+    'Q. No',
+    'Your answer',
+    'Correct Answer',
+    'Time taken',
+    'Status'
+  ];
   const localStorageKey: string = 'quiz-results';
 
   // Logic to evaluate the results
@@ -83,8 +90,27 @@ const Result = (props: IProp) => {
         {(result / props.questionsData.length) * 100} %
       </h2>
 
-      <p>{(result / props.questionsData.length) * 100} %</p>
-      {resultStats.map((result, index) => {
+      {/* <p>{(result / props.questionsData.length) * 100} %</p> */}
+      <table style={{ width: 1000 }}>
+        <thead>
+          <tr>
+            {heading.map((head, headID) => (
+              <th key={headID}>{head}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {resultStats.map((rowContent, index) => (
+            <TableRow
+              rowContent={rowContent}
+              questionNumber={index}
+              key={rowContent.id}
+            />
+          ))}
+        </tbody>
+      </table>
+
+      {/* {resultStats.map((result, index) => {
         return (
           <div key={result.id}>
             <p>
@@ -96,9 +122,34 @@ const Result = (props: IProp) => {
             <p>Status: {result.status}</p>
           </div>
         );
-      })}
+      })} */}
     </div>
   );
 };
 
 export default Result;
+
+interface ITableProp {
+  rowContent: IResultStats;
+  questionNumber: number;
+}
+
+const TableRow = (props: ITableProp) => {
+  // const row = props.rowContent;
+
+  const modifiedRow = [
+    props.questionNumber,
+    props.rowContent.answerSelected,
+    props.rowContent.correctAnswer,
+    props.rowContent.timeTaken,
+    props.rowContent.status
+  ];
+
+  return (
+    <tr>
+      {modifiedRow.map((val, rowID) => (
+        <td key={rowID}>{val}</td>
+      ))}
+    </tr>
+  );
+};
