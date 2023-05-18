@@ -64,8 +64,6 @@ const Result = (props: IProp) => {
         {(result / props.questionsData.length) * 100} %
       </h2>
 
-      <h2>Result: </h2>
-
       <p>{(result / props.questionsData.length) * 100} %</p>
       {resultStats.map((result, index) => {
         return (
