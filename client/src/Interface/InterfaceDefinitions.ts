@@ -28,7 +28,7 @@ export interface IAnsweredData {
 export interface IResultStats {
   id: number;
   timeTaken: number | string;
-  status: 'correct' | 'incorrect' | 'unattempted';
+  status: 'Correct' | 'Incorrect' | 'Unattempted';
   answerSelected: string;
   correctAnswer: string;
 }
