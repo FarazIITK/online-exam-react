@@ -102,7 +102,7 @@ const Result = (props: IProp) => {
           {resultStats.map((rowContent, index) => (
             <TableRow
               rowContent={rowContent}
-              questionNumber={index}
+              questionNumber={index + 1}
               key={rowContent.id}
             />
           ))}
